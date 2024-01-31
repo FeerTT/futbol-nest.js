@@ -3,12 +3,18 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class MapperService {
   dtoToClass<T>(dtoObject: any, classObject: T): T {
-    for (const property in dtoObject) {
-      if (
-        dtoObject.hasOwnProperty(property) &&
-        typeof dtoObject[property] !== 'function'
-      ) {
-        classObject[property] = dtoObject[property];
+    if (dtoObject && typeof dtoObject === 'object') {
+      for (const property in dtoObject) {
+        try {
+          if (
+            Object.prototype.hasOwnProperty.call(dtoObject, property) &&
+            typeof dtoObject[property] !== 'function'
+          ) {
+            classObject[property] = dtoObject[property];
+          }
+        } catch (error) {
+          console.error(`Error processing property ${property}:`, error);
+        }
       }
     }
 
