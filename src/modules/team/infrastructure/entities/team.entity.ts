@@ -40,6 +40,9 @@ export class TeamEntity {
   @Column({ nullable: true })
   venue: string;
 
+  @Column()
+  crestUrl: string;
+
   @UpdateDateColumn({ name: 'lastUpdate' })
   lastUpdate: Date;
 }
