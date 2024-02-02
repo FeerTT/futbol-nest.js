@@ -8,6 +8,7 @@ import {
   Post,
   UseInterceptors,
   UploadedFile,
+  Query,
   InternalServerErrorException,
 } from '@nestjs/common';
 import { Team } from '../domain/team.domain';

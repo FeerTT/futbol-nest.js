@@ -8,6 +8,8 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from './configuration/configuration';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { PlayerModule } from './modules/player/player.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,6 +27,7 @@ import { join } from 'path';
       serveRoot: '/static',
     }),
     TeamModule,
+    PlayerModule,
     CommonModule,
   ],
   controllers: [AppController],

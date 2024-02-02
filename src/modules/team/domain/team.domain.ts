@@ -1,11 +1,7 @@
-import { Base } from 'src/common/domain/base.domain';
-import { Player } from 'src/modules/player/domain/player.domain';
+import { Base } from '../../../common/domain/base.domain';
+import { PlayerEntity } from 'src/modules/player/infrastructure/entities/player.entity';
 
 export class Team extends Base {
-  area: {
-    id: number;
-    name: string;
-  };
   name: string;
   shortName: string;
   tla: string;
@@ -16,6 +12,6 @@ export class Team extends Base {
   founded: number;
   clubColors: string;
   venue: any;
-  squad: Player[];
+  squad: PlayerEntity[];
   crestUrl: string;
 }
