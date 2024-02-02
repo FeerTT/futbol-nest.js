@@ -3,7 +3,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { PlayerEntity } from '@/modules/player/infrastructure/entities/player.entity';
 
 @Entity('team')
 export class TeamEntity {
@@ -45,4 +47,7 @@ export class TeamEntity {
 
   @UpdateDateColumn({ name: 'lastUpdate' })
   lastUpdate: Date;
+
+  @OneToMany(() => PlayerEntity, (player) => player.teamId)
+  squad: PlayerEntity[];
 }

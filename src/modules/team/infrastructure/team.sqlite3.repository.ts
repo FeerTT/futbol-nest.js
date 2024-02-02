@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MapperService } from 'src/common/application/mapper/mapper.service';
+import { MapperService } from '@/common/application/mapper/mapper.service';
 import { TeamRepository } from '../application/repository/team.repository';
 import { Team } from '../domain/team.domain';
 import { TeamEntity } from './entities/team.entity';
@@ -22,7 +22,10 @@ export class TeamSqliteRepository implements TeamRepository {
   }
 
   async findOne(id: number): Promise<Team> {
-    const teamEntity = await this.teamRepository.findOne({ where: { id } });
+    const teamEntity = await this.teamRepository.findOne({
+      where: { id },
+      relations: ['squad'],
+    });
     return this.mapperService.entityToClass(teamEntity, new Team());
   }
 

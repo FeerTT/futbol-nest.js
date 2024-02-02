@@ -1,10 +1,12 @@
 import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { Team } from '../../domain/team.domain';
-import { MapperService } from 'src/common/application/mapper/mapper.service';
+import { MapperService } from '@/common/application/mapper/mapper.service';
+
 import { TeamRepository } from '../repository/team.repository';
 import CreateTeamDto from '../../controllers/dto/create-team.dto';
 import * as fs from 'fs';
 import { UpdateTeamDto } from '../../controllers/dto/update-team.dto';
+
 @Injectable()
 export class TeamService {
   constructor(
@@ -15,14 +17,20 @@ export class TeamService {
 
   async findAll(): Promise<Team[]> {
     try {
-      return await this.teamRepository.findAll();
+      return await this.teamRepository.findAll({ relations: ['squad'] });
     } catch (error) {
       console.error(error);
     }
   }
 
   async findOne(id: number): Promise<Team> {
-    return this.teamRepository.findOne(id);
+    const team = await this.teamRepository.findOne(id, {
+      relations: ['squad'],
+    });
+    if (!team) {
+      throw new NotFoundException(`No team found with ID: ${id}`);
+    }
+    return team;
   }
 
   async create(createTeamDto: CreateTeamDto): Promise<Team> {

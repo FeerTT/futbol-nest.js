@@ -1,6 +1,6 @@
 export class Base {
-  id?: number;
+  id: number;
   createdAt?: Date;
   deletedAt?: Date;
-  updatedAt?: Date;
+  lastUpdate?: Date;
 }
